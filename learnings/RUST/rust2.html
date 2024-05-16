@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Code Example</title>
+    <!-- Prism CSS for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .main-content {
+            text-align: left;
+            margin: 50px auto;
+            width: 80%;
+            max-width: 1200px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rust Code Example</h1>
+    </header>
+    <div class="main-content">
+        <button class="copy-button" onclick="copyCode()">Copy Code</button>
+        <pre><code class="language-rust" id="rust-code">
+Loading Rust code...
+        </code></pre>
+    </div>
+
+    <!-- Prism JavaScript for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-rust.min.js"></script>
+    <script>
+        function copyCode() {
+            var codeElement = document.querySelector("code.language-rust");
+            var range = document.createRange();
+            range.selectNode(codeElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+            alert("Code copied to clipboard!");
+        }
+
+        // Fetch Rust code from main.rs file
+        fetch('main.rs')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('rust-code').textContent = data;
+                Prism.highlightAll();
+            })
+            .catch(error => console.error('Error fetching Rust code:', error));
+    </script>
+</body>
+</html>
